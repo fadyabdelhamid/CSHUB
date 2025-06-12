@@ -1,0 +1,151 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">CS HUB</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#basic-navbar-nav"
+      aria-controls="basic-navbar-nav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="basic-navbar-nav">
+      <form class="d-flex me-auto" action="/search" method="get">
+        <div class="input-group">
+          <input
+            type="text"
+            name="searchtext"
+            placeholder="Search Products..."
+            aria-label="Search Products"
+            aria-describedby="button-search"
+            class="form-control"
+          />
+          <button
+            class="btn btn-outline-primary"
+            type="submit"
+            id="button-search"
+            aria-label="Search Products Button"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
+      <ul class="navbar-nav ms-auto w-100 justify-content-end">
+        <li class="nav-item dropdown">
+          <!-- <a class="nav-link" href="/resources">Courses</a> -->
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="basic-nav-dropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            courses
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="basic-nav-dropdown">
+            
+
+
+                <li>
+              <a class="dropdown-item" href="/softwareengineer">Software Engineer</a>
+            </li>
+            
+                <li>
+              <a class="dropdown-item" href="/cybersecurity">Cyber security</a>
+            </li>
+            
+                <li>
+              <a class="dropdown-item" href="/ai">AI</a>
+            </li>
+            
+            <li><hr class="dropdown-divider" /></li>
+            <form action="/resources" method="get" >
+              <li>
+                <a href="/resources" class="dropdown-item" >ALL Courses</a>
+              </li>
+            </form>
+            
+          </ul>
+        </li>
+          
+       
+        <%  if (typeof user !== "undefined") { %>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="basic-nav-dropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <%= user.fullname %>
+            
+            <% if (user.Type == 'Admin'){%>
+          </a>
+              <ul class="dropdown-menu" aria-labelledby="basic-nav-dropdown">
+                <li>
+                  <a class="dropdown-item" href="/profile">Admin Profile</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/admindashboard">Dashboard</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/adminresource">Resources</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/adminDashboard">Reports</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/adminusers">Users</a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+              
+              <%}else if (user.Type == 'user'){%>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="basic-nav-dropdown">
+            <li>
+              <a class="dropdown-item" href="/profile">User Profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/uaddresource">Add Resource</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/yourcourses">Your Courses</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/notification">Your Notification</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <%}%>
+            <form id="logoutForm" action="/logout" method="post">
+              <li>
+                <a href="#" class="dropdown-item" id="signOutLink">Sign Out</a>
+              </li>
+            </form>
+            
+          </ul>
+        </li>
+        <% } else {%>
+        <li class="nav-item">
+          <a class="nav-link" href="/signin">Sign In</a>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('signOutLink').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default link behavior
+    document.getElementById('logoutForm').submit(); // Submit the form
+  });
+});
+</script>

@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+        <%- include('../partials/header'); %>
+        
+        <style>
+            @import url("https://fonts.googleapis.com/css?family=Calligraffitti|Mali");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+:root {
+  --mainYellow: #fdbe02;
+  --mainWhite: #fff;
+  --mainBlack: #071013;
+  --mainGrey: #9b9999;
+  --TransGrey: rgba(0, 0, 0, 0.1);
+}
+.error-message{
+  color:red;
+}
+.card {
+  border: none;
+  border-radius: 0;
+}
+nav {
+  margin-bottom: 10px;
+}
+.card-img-top {
+width: auto;
+height: auto;
+max-width: 220px;
+max-width: 220px;
+object-fit: cover;
+}
+ body {
+  max-width: 100%;
+  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+  }
+.site-header {
+    background-color: rgba(0, 0, 0, .85);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+  .site-header a {
+    color: #8e8e8e;
+    transition: color .15s ease-in-out;
+  }
+  .site-header a:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+  nav {
+    padding: 0.5rem;
+
+  }
+  .nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+  }
+
+  .nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .py-2{
+    text-decoration: none;
+  }
+  .banner{
+    min-height: calc(100vh - 101px);
+    background: url(../image/background0.gif);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 100px 10px 15px 10px;
+}
+.banner h1 {
+    color: white;
+}
+
+.btn-yellow{
+  font-size: 1.2rem;
+  color: var(--mainBlack);
+  background: var(--mainYellow);
+  text-transform: capitalize;
+}
+.btn-yellow:hover{
+  background: var(--mainBlack);
+  color: var(--mainYellow);
+}
+.btn-black{
+  color: var(--mainBlack);
+  background: transparent !important;
+  font-size: 1.2rem;
+  border: 0.1rem solid var(--mainBlack);
+}
+.btn-black:hover{
+  color: var(--mainWhite);
+  background: var(--mainBlack) !important;
+}
+.text-yellow{
+  color: var(--mainYellow);
+}
+
+.text-slanted {
+  font-family: "Calligraffitti";
+  color: white;
+}
+.text-lowercase {
+  font-family: "Calligraffitti";
+  text-transform: lowercase!important;
+  color: white;
+}
+.service-icon{
+  font-size: 2rem;
+  background: var(--mainGrey);
+  color: var(--mainYellow);
+  margin-bottom: 1rem;
+  display: inline-block;
+  padding: 0.3rem 1rem;
+  border-radius: 50%;
+}
+.text-uppercase
+{
+  font-family: " Mali, cursive";
+}
+.text-muted
+{
+  font-family: "Calligraffitti";
+  color: rgb(108, 117, 125) !important;
+}
+.categorie-link{
+  color: var(--mainBlack);
+  text-decoration: none;
+}
+.categorie-link:hover{
+  color: var(--mainGrey);
+  text-decoration: none;
+}
+.categorie-underline{
+  height: 0.1rem;
+  width: 5rem;
+  background: var(--mainYellow);
+}
+.category-container{
+  position: relative;
+}
+.category-img{
+  transition: all 1s linear;
+}
+.category-container:hover .category-img{
+  opacity: 0.5;
+}
+.category-link{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: var(--mainWhite);
+  color: var(--mainBlack);
+  padding: 0.2rem 3rem 0.2rem 0.2rem;
+  clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%);
+  text-decoration: none;
+  transition: all 1s linear;
+  opacity: 0;
+}
+.category-container:hover .category-link{
+  opacity: 1;
+  text-decoration: none;
+}
+.phone-filler{
+    min-height: calc(100vh - 101px);
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../image/background1.jpg) center/cover fixed no-repeat;
+
+}
+.collection-link{
+  text-decoration: none;
+}
+.collection-link:hover{
+  text-decoration: none;
+  color: var(--mainGrey);
+}
+.collection-underline{
+  background: var(--mainYellow);
+  height: 0.1rem;
+  width: 5rem;
+  margin: 0 auto;
+}
+.text-capitalize{
+  font-family: " Mali, cursive";
+}
+.featured-container{
+  background: var(--TransGrey);
+  position: relative;
+  overflow: hidden;
+}
+.old-price{
+  text-decoration: line-through;
+}
+.featured-search-icon{
+  background: var(--mainWhite);
+  position: absolute;
+  padding: 0.2rem 0.4rem;
+  display: inline-block;
+  top: 50%;
+  right: 0%;
+  font-size: 1.2rem;
+  transform: translateX(110%);
+  transition: all 1s ease-in-out;
+  cursor: pointer;
+}
+.featured-container:hover .featured-search-icon{
+  transform: translateX(0%);
+}
+.featured-store-link{
+  background: var(--mainYellow);
+  color: var(--mainBlack);
+  position: absolute;
+  top: 70%;
+  right: 0%;
+  padding: 0.2rem 0.4rem;
+  transition: all 1s ease-in-out;
+  transform: translateX(110%);
+  cursor: pointer; /* sets the mouse cursor to a pointer and indicates a link. 
+  This is used to inform users of the mouse operations that can be performed at the current location */
+} 
+.featured-store-link:hover{
+  color: var(--mainBlack);
+}
+.featured-container:hover .featured-store-link{
+  transform: translateX(0%);
+}
+.skills{
+  background: var(--mainBlack);
+}
+.skill-icon{
+  color: var(--mainYellow);
+  font-size: 1rem;
+  padding: 5px;
+  
+}
+.footer{
+  background: rgba(0, 0, 0, 0.8);
+}
+.footer-title{
+  padding: 0.4rem;
+  border: 0.2rem solid var(--mainYellow);
+}
+.footer-title{
+  padding: 0.4rem;
+  border: 0.2rem solid var(--mainYellow);
+}
+.footer-icon{
+  color: var(--mainYellow);
+  font-size: 1.5rem;
+  transition: all 0.3s ease-in-out;
+
+}
+.footer-title{
+  padding: 0.4rem;
+  border: 0.2rem solid var(--mainYellow);
+}
+.footer-icon{
+  color: var(--mainYellow);
+  font-size: 1.5rem;
+  transition: all 0.3s ease-in-out;
+}
+.footer-icon:hover{
+  color: var(--mainWhite);
+}
+.contact-icon{
+  color: var(--mainYellow);
+}
+
+.panel-heading {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 10px;
+  }
+
+  .panel-heading .glyphicon {
+    margin-right: 5px;
+  }
+
+  .panel-heading .btn-group {
+    margin-top: -3px;
+  }
+
+  .chat-screen {
+    margin-top: 13px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    
+  }
+
+  .message {
+    margin-bottom: 10px;
+  }
+
+  .input-group {
+    margin-top: 10px;
+  }
+
+  #message-input {
+    border-radius: 0;
+  }
+
+  #send-message {
+    border-radius: 0;
+  }
+
+  #exit-chat {
+    margin-top: 10px;
+  }
+
+  .join-screen {
+    display: none;
+  }
+
+  .join-screen.active {
+    display: block;
+  }
+        </style>
+      </head>
+<body>
+    <div class="banner d-flex align-items-center pl-3 pl-lg-5">
+        <div>
+            <h1 class="text-slanted text-capitalize mb-0" >
+                Gate To Computer World
+            </h1>
+            <h1 class="text-lowercase font-weight-bold">
+                Explore This World
+            </h1>
+            <% if ((user && user.Type === 'user') || typeof user === 'undefined') { %>
+              <a href="/resources" class="btn btn-yellow">View ALL Collection</a>
+            <% } else if (user && user.Type === 'Admin') { %>
+              <a href="/admincourses" class="btn btn-yellow">View ALL Courses</a>
+            <% } %>
+            
+            
+            
+        </div>
+    </div>
+    <section id="services" class="services py-5 text-center">
+
+        <div class="row">
+
+            <div class="col-10 mx-auto col-md-6 col-lg-4 my-3">
+                <span class="service-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-cloud-haze2" viewBox="0 0 16 16">
+                        <path
+                            d="M8.5 3a4.002 4.002 0 0 0-3.8 2.745.5.5 0 1 1-.949-.313 5.002 5.002 0 0 1 9.654.595A3 3 0 0 1 13 12H4.5a.5.5 0 0 1 0-1H13a2 2 0 0 0 .001-4h-.026a.5.5 0 0 1-.5-.445A4 4 0 0 0 8.5 3zM0 7.5A.5.5 0 0 1 .5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm2 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-2 4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z" />
+                    </svg>
+                </span>
+                <h5 class="text-uppercase font-weight-bold">
+                    free Resources
+                </h5>
+                <p class="text-muted text-capitalize">
+                    free Resources on all order over 100.00
+                </p>
+            </div>
+
+            <div class="col-10 mx-auto col-md-6 col-lg-4 my-3">
+                <span class="service-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-telephone-inbound-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511zM15.854.146a.5.5 0 0 1 0 .708L11.707 5H14.5a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 1 0v2.793L15.146.146a.5.5 0 0 1 .708 0z" />
+                    </svg>
+                </span>
+                <h5 class="text-uppercase font-weight-bold">
+                    ONLINE SUPPORT 24/7
+                </h5>
+                <p class="text-muted text-capitalize">
+                    We Will Assist You With Your Inquiries
+                </p>
+            </div>
+
+            <div class="col-10 mx-auto col-md-6 col-lg-4 my-3">
+                <span class="service-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-currency-exchange" viewBox="0 0 16 16">
+                        <path
+                            d="M0 5a5.002 5.002 0 0 0 4.027 4.905 6.46 6.46 0 0 1 .544-2.073C3.695 7.536 3.132 6.864 3 5.91h-.5v-.426h.466V5.05c0-.046 0-.093.004-.135H2.5v-.427h.511C3.236 3.24 4.213 2.5 5.681 2.5c.316 0 .59.031.819.085v.733a3.46 3.46 0 0 0-.815-.082c-.919 0-1.538.466-1.734 1.252h1.917v.427h-1.98c-.003.046-.003.097-.003.147v.422h1.983v.427H3.93c.118.602.468 1.03 1.005 1.229a6.5 6.5 0 0 1 4.97-3.113A5.002 5.002 0 0 0 0 5zm16 5.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0zm-7.75 1.322c.069.835.746 1.485 1.964 1.562V14h.54v-.62c1.259-.086 1.996-.74 1.996-1.69 0-.865-.563-1.31-1.57-1.54l-.426-.1V8.374c.54.06.884.347.966.745h.948c-.07-.804-.779-1.433-1.914-1.502V7h-.54v.629c-1.076.103-1.808.732-1.808 1.622 0 .787.544 1.288 1.45 1.493l.358.085v1.78c-.554-.08-.92-.376-1.003-.787H8.25zm1.96-1.895c-.532-.12-.82-.364-.82-.732 0-.41.311-.719.824-.809v1.54h-.005zm.622 1.044c.645.145.943.38.943.796 0 .474-.37.8-1.02.86v-1.674l.077.018z" />
+                    </svg>
+                </span>
+                <h5 class="text-uppercase font-weight-bold">
+                    MONEY BACK GURANTEE
+                </h5>
+                <p class="text-muted text-capitalize">
+                    Free 100% Refund For 30 Da
+                </p>
+            </div>
+
+        </div>
+        </div>
+    </section>
+    <section id="laptop-categories" class="home-categories py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-10 mx-auto col-md-6 col-lg-3 align-self-center">
+                    <h5 class="text-uppercase">
+                        Courses categories
+                    </h5>
+                    <p class="text-muted text-capitalize">
+                        The best Courses that give a grateful benefit and very powerful benefit..
+                    </p>
+                    <a href="" class="categorie-link text-weight-bold text-capitalize">
+                        view all categories
+                    </a>
+                    <div class="categorie-underline">
+                    </div>
+                </div>
+                <div class="col-10 mx-auto col-md-6 col-lg-9 my-3">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3 my-3">
+                            <div class="category-container">
+                                <img src="../public/image/lap2.jpg" class="img-fluid category-img" alt="">
+                                <a href="index.html" class="category-link">
+                                    <h6 class="text-uppercase mb-0">
+                                        Men shirt
+                                    </h6>
+                                    <p class="text-yellow mb-0">
+                                        50 items
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 my-3">
+                            <div class="category-container">
+                                <img src="../../public/image/lap3.jpg" class="img-fluid category-img" alt="">
+                                <a href="index.html" class="category-link">
+                                    <h6 class="text-uppercase mb-0">
+                                        Men shirt
+                                    </h6>
+                                    <p class="text-yellow mb-0">
+                                        20 items
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 my-3">
+                            <div class="category-container">
+                                <img src="../../public/image/lap4.jpg" class="img-fluid category-img" alt="">
+                                <a href="index.html" class="category-link">
+                                    <h6 class="text-uppercase mb-0">
+                                        Men shirt
+                                    </h6>
+                                    <p class="text-yellow mb-0">
+                                        25 items
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 my-3">
+                            <div class="category-container">
+                                <img src="../../public/image/lap5.jpg" class="img-fluid category-img" alt="">
+                                <a href="index.html" class="category-link">
+                                    <h6 class="text-uppercase mb-0">
+                                        Men shirt
+                                    </h6>
+                                    <p class="text-yellow mb-0">
+                                        10 items
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="phone-filler">
+        <div class="container-fluid">
+            <div class="row phone-filler align-items-center">
+                <div class="col-10 mx-auto text-center text-white">
+                    <h4 class="text-uppercase font-weight-bold">
+                        A unique set of Courses
+                    </h4>
+                    <p class="text-capitalize">
+                        A  curriculum reflecting the ever-evolving landscape of computer science, tailored to match the pulse of technology expression.
+                    </p>
+                    <% if ((user && user.Type === 'user') || typeof user === 'undefined') { %>
+                      <a href="/resources" class="btn btn-yellow">View ALL Collection</a>
+                    <% } else if (user && user.Type === 'Admin') { %>
+                      <a href="/admincourses" class="btn btn-yellow">View ALL Courses</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="featured" class="featured py-5">
+        <div class="container">
+            <div class="row my-3">
+                <div class="col-10 mx-auto text-center">
+                    <h1 class="text-uppercase">
+                        featured products
+                    </h1>
+                    <p class="text-muted">
+                      one of the most trusted global companies
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10 mx-auto col-md-6 col-lg-4">
+                    <div class="featured-container p-5">
+                        <img src="../image/aicat.jpg" alt="" class="img-fluid">
+                        <span class="featured-search-icon" data-toggle="modal" data-target="#productModal">
+                        </span>
+                        <a href="ai" class="featured-store-link text-capitalize">Explore</a>
+                    </div>
+                    <h6 class="text-capitalize text-center my-2">
+                        Artificial Intelligence
+                    </h6>
+                </div>
+                <div class="col-10 mx-auto col-md-6 col-lg-4">
+                    <div class="featured-container p-5">
+                        <img src="../image/secat.jpg" alt="" class="img-fluid">
+                        <span class="featured-search-icon" data-toggle="modal" data-target="#productModal">
+                        </span>
+                        <a href="cybersecurity" class="featured-store-link text-capitalize">Explore</a>
+                    </div>
+                    <h6 class="text-capitalize text-center my-2">
+                       Security 
+                    </h6>
+                </div>
+                <div class="col-10 mx-auto col-md-6 col-lg-4">
+                    <div class="featured-container p-5">
+                        <img src="../image/swcat.jpg" alt="" class="img-fluid">
+                        <span class="featured-search-icon" data-toggle="modal" data-target="#productModal">
+                        </span>
+                        <a href="softwareengineer" class="featured-store-link text-capitalize">Explore</a>
+                    </div>
+                    <h6 class="text-capitalize text-center my-2">
+                        Software Engineering
+                    </h6>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <section id="newsletter" class="newsletter py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-10 mx-auto text-center">
+                    <h2 class="text-uppercase">
+                        newsletter
+                    </h2>
+                    <p>
+                        We are an international market and we have trusted brands , so you can buy anything with
+                        confidence.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="skills" class="skills py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-10 col-md-6 col-lg-4 mx-auto d-flex my-3">
+                    <div class="skill-icon mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-truck" viewBox="0 0 16 16">
+                            <path
+                                d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                        </svg>
+                    </div>
+                    <div class="skill-text">
+                        <h3 class="text-uppercase text-white">
+                            free Resources
+                        </h3>
+                        <p class="text-capitalize text-muted">
+                            Hi, it really hurts to help gain weight. I hate you lazy!
+                        </p>
+                    </div>
+                </div>
+                <div class="col-10 col-md-6 col-lg-4 mx-auto d-flex my-3">
+                    <div class="skill-icon mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                            <path
+                                d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z" />
+                        </svg>
+                    </div>
+                    <div class="skill-text">
+                        <h3 class="text-uppercase text-white">
+                            price promise
+                        </h3>
+                        <p class="text-capitalize text-muted">
+                            Hey, it's really a tough promise to follow. I hate you, you freeloader!
+                        </p>
+                    </div>
+                </div>
+                <div class="col-10 col-md-6 col-lg-4 mx-auto d-flex my-3">
+                    <div class="skill-icon mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-award" viewBox="0 0 16 16">
+                            <path
+                                d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z" />
+                            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+                        </svg>
+                    </div>
+                    <div class="skill-text">
+                        <h3 class="text-uppercase text-white">
+                            lifetime warranty
+                        </h3>
+                        <p class="text-capitalize text-muted">
+                            Hey, it's really a big responsibility. But don't worry, we are a sign of trust!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <main>
+        <% if(typeof user !== "undefined") { %>
+            <%- console.log(user);%>
+            <%- include('./chat',{user}); %>
+          <% } %>
+    </main>
+    <footer><%- include('../partials/footer'); %></footer>
+</body>
+
+</html>

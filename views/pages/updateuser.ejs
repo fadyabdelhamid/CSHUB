@@ -1,0 +1,626 @@
+<%- include('../partials/adminnav'); %>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+            integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+            crossorigin="anonymous" />
+
+
+        <title>Admin panel</title>
+
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+                font-family: "poppins", sans-serif;
+            }
+
+            .topbar {
+                position: fixed;
+                background-color: #fff;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+                width: 100%;
+                padding: 0 20px;
+                height: 60px;
+                display: grid;
+                grid-template-columns: 2fr 10fr 0.4fr 1fr;
+                align-items: center;
+                z-index: 1;
+            }
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .logo h2 {
+                color: #000000;
+            }
+
+            .search {
+                position: relative;
+                width: 50%;
+                justify-self: center;
+            }
+
+            .search input {
+                width: 100%;
+                min-width: 128px;
+                height: 40px;
+                padding: 0 40px;
+                font-size: 16px;
+                outline: none;
+                border: none;
+                border-radius: 10px;
+                background: #f5f5f5;
+            }
+
+            .search i {
+                position: absolute;
+                right: 15px;
+                top: 15px;
+                cursor: pointer;
+            }
+
+            .fa-bell {
+                justify-self: right;
+            }
+
+            .user {
+                position: relative;
+                width: 50px;
+                height: 50px;
+                right: 0;
+                justify-self: right;
+            }
+
+            /* sidebar */
+
+            .sidebar {
+                position: fixed;
+                top: 60px;
+                width: 260px;
+                height: calc(100% - 60px);
+                background: #000000;
+                overflow-x: hidden;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                z-index: 2;
+            }
+
+            .sidebar ul {
+                margin-top: 20px;
+            }
+
+            .sidebar ul li {
+                width: 100%;
+                list-style: none;
+            }
+
+            .sidebar ul li:hover {
+                background: #fff;
+            }
+
+            .sidebar ul li:hover a {
+                color: #000000;
+            }
+
+            .sidebar ul li a {
+                width: 100%;
+                text-decoration: none;
+                color: #fff;
+                height: 60px;
+                display: flex;
+                align-items: center;
+            }
+
+            .sidebar ul li a i {
+                min-width: 60px;
+                font-size: 24px;
+                text-align: center;
+            }
+
+            /* main */
+
+            .main {
+                position: absolute;
+                top: 60px;
+                width: calc(100% - 260px);
+                min-height: calc(100vh - 60px);
+                left: 260px;
+                background: #f5f5f5;
+            }
+
+            .cards {
+                width: 100%;
+                padding: 35px 20px;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-gap: 20px;
+            }
+
+            .cards .card {
+                padding: 20px;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+            }
+
+            .formcards {
+                width: 100%;
+                padding: 35px 20px;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-gap: 20px;
+            }
+
+            .formcards .formcard {
+                padding: 20px;
+                width: 500px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            form {
+                width: 100%;
+            }
+
+            .number {
+                font-size: 35px;
+                font-weight: 500;
+                color: #000000;
+            }
+
+            .card-name {
+                color: #888;
+                font-weight: 600;
+            }
+
+            .icon-box i {
+                font-size: 45px;
+                color: #000000;
+            }
+
+            /* charts */
+
+            .charts {
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                grid-gap: 20px;
+                width: 100%;
+                padding: 20px;
+                padding-top: 0;
+            }
+
+            .chart {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+                width: 100%;
+            }
+
+            .chart h2 {
+                margin-bottom: 5px;
+                font-size: 20px;
+                color: #666;
+                text-align: center;
+            }
+
+            /* Add styles for the dropdown */
+            .dropdown {
+                position: relative;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f1f1f1;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+            }
+
+            /* Style the links within the dropdown */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            /* Show the dropdown content when hovering over the dropdown */
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropdown-content a:hover {
+                background: #ffffff;
+            }
+
+            /* Common styles for form containers */
+            .form-container {
+                text-align: center;
+                width: 100%;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #f8f8f8;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            /* Style for form labels */
+            .form-container label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+                text-align: left;
+            }
+
+            /* Style for form inputs */
+            .form-container input {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+            .form-container select {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+            /* Style for the submit button */
+            .form-container input[type="submit"] {
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+
+            /* Style for the submit button on hover */
+            .form-container input[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+
+            /* Apply a border to the table */
+            .table {
+                border-collapse: collapse;
+                width: 100%;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+            /* Style the table header row */
+            .table th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+                text-align: left;
+                padding: 8px;
+            }
+
+            /* Style the table data rows alternately for better readability */
+            .table tbody tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            /* Style the table data rows */
+            .table td {
+                padding: 8px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            /* Highlight the first column (ID) */
+            .table td:first-child {
+                font-weight: bold;
+            }
+
+            /* Hover effect for table rows */
+            .table tbody tr:hover {
+                background-color: #e0e0e0;
+            }
+
+            /* Optional: Add borders around table cells */
+            .table th,
+            .table td {
+                border: 1px solid #ddd;
+            }
+
+            .custom-table {
+                background-color: white;
+                margin-left: 20;
+                /* Set margin-left to 0 for left alignment */
+            }
+
+            .custom-table th {
+                background-color: #949494;
+
+            }
+
+            /* Optional: Add some styling to the table rows and cells */
+            .custom-table tbody tr:nth-child(odd) {
+                background-color: #f2f2f2;
+                /* Alternate row background color */
+            }
+
+            .custom-table th,
+            .custom-table td {
+                padding: 10px;
+                text-align: left;
+            }
+
+            .container-fluid {
+                display: flex;
+            }
+
+            .table-container {
+                width: 50%;
+                padding: 10px;
+                /* Add padding for spacing */
+            }
+
+            /* styling the search input */
+            .search-container {
+                display: flex;
+                justify-content: left;
+                align-items: first baseline;
+                margin-bottom: 20px;
+                margin-left: 20px;
+            }
+
+            #searchInput {
+                width: 25%;
+                padding: 10px;
+                padding-left: 40px;
+                font-size: 16px;
+                border: 1px solid #ddd;
+                border-radius: 20px 0 0 20px;
+                outline: none;
+                position: relative;
+            }
+
+            .search-button {
+                padding: 10px 20px;
+                color: white;
+                border: none;
+                border-radius: 0 20px 20px 0;
+                cursor: pointer;
+                font-size: 16px;
+                outline: none;
+            }
+
+            .Cancelled {
+                background-color: red;
+            }
+
+            .Pending {
+                background-color: grey;
+            }
+
+            .Confirmed {
+                background-color: green;
+            }
+
+            .Delivered {
+                background-color: rgb(17, 0, 255);
+            }
+
+            @media (max-width: 1115px) {
+                .sidebar {
+                    width: 60px;
+                }
+
+                .main {
+                    width: calc(100% - 60px);
+                    left: 60px;
+                }
+            }
+
+            @media (max-width: 880px) {
+
+                /* .topbar {
+            grid-template-columns: 1.6fr 6fr 0.4fr 1fr;
+        } */
+                .fa-bell {
+                    justify-self: left;
+                }
+
+                .cards {
+                    width: 100%;
+                    padding: 35px 20px;
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-gap: 20px;
+                }
+
+                .charts {
+                    grid-template-columns: 1fr;
+                }
+
+                .doughnut-chart {
+                    padding: 50px;
+                }
+
+                #doughnut {
+                    padding: 50px;
+                }
+            }
+
+            @media (max-width: 500px) {
+                .topbar {
+                    grid-template-columns: 1fr 5fr 0.4fr 1fr;
+                }
+
+                .logo h2 {
+                    font-size: 20px;
+                }
+
+                .search {
+                    width: 80%;
+                }
+
+                .search input {
+                    padding: 0 20px;
+                }
+
+                .fa-bell {
+                    margin-right: 5px;
+                }
+
+                .cards {
+                    grid-template-columns: 1fr;
+                }
+
+                .doughnut-chart {
+                    padding: 10px;
+                }
+
+                #doughnut {
+                    padding: 0px;
+                }
+
+                .user {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .topbar {
+                    grid-template-columns: 1fr 5fr 0.4fr 1fr;
+                }
+
+                .logo h2 {
+                    font-size: 20px;
+                }
+
+                .search {
+                    width: 100%;
+                    max-width: none;
+                }
+
+                .search input {
+                    padding: 0 20px;
+                }
+
+                .fa-bell {
+                    margin-right: 5px;
+                }
+
+                .cards,
+                .formcards {
+                    grid-template-columns: 1fr;
+                }
+
+                .charts {
+                    grid-template-columns: 1fr;
+                }
+
+                .user {
+                    width: 40px;
+                    height: 40px;
+                }
+
+                .search-container {
+                    width: 800px;
+                }
+            }
+        </style>
+    </head>
+
+    <div class="container">
+
+
+
+        <!-- Add product  -->
+        <form method="post">
+            <div class="main">
+                <div class="formcards">
+                    <div class="formcard">
+                        <div class="card-content form-container">
+
+                            <h1>Update User</h1>
+                            <div class="form-group mb-3">
+                                <label>Name</label>
+                                <input class="form-control" name="profileName" required />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Email</label>
+                                <input type="email" name="profileEmail" class="form-control" required />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Password</label>
+                                <input type="password" name="profilePassword" class="form-control" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Confirm Password</label>
+                                <input type="password" name="profileConfirmPassword" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <input type="submit" value="Update User"
+                                    style="background-color: #007BFF; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+  
+    <script>
+        const pathParts = window.location.pathname.split('/');
+        const userId = pathParts[pathParts.length - 1];
+
+        const data = {
+            userId: userId
+        };
+
+        fetch(`/updateuser/${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Resource updated successfully');
+                } else {
+                    console.error('Failed to update resource');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+    </script>

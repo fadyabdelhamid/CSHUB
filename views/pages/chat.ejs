@@ -1,0 +1,154 @@
+<div class="container-md" style="position: fixed; bottom: 0; left: 0;">
+    <div class="row row-sm">
+      <div class="col-md-5">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <span class="bi bi-chat"></span> Chat
+            <div class="btn-group pull-end">
+              <button type="button" class="btn btn-default btn-sm" data-bs-toggle="collapse" aria-label="collapse Live chat Button"
+                data-bs-target="#collapseOne">
+                <span class="bi bi-chevron-down"></span>
+              </button>
+            </div>
+          </div>
+          <div class="collapse" id="collapseOne">
+            <div class="panel-body">
+              <ul class="chat">
+                <div class="app">
+                  <div class="chat-screen">
+                    <div class="message"></div>
+                    <div class="input-group">
+                      <input id="message-input" type="text" class="form-control input-sm"
+                        placeholder="Type your message here..." />
+                      <button class="btn btn-warning btn-sm" id="send-message">Send</button>
+                    </div>
+                    <button class="btn btn-danger btn-sm" id="exit-chat">Exit Chat</button>
+                  </div>
+                  <div class="join-screen active">
+                    <button id="join-user" class="btn btn-primary">Join</button>
+                  </div>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    (function () {
+      const chatButton = document.querySelector('[data-bs-toggle="collapse"]');
+      const chatPanel = document.querySelector(chatButton.getAttribute('data-bs-target'));
+  
+      let isChatVisible = true;
+  
+      chatButton.addEventListener('click', function () {
+        isChatVisible = !isChatVisible;
+  
+        if (isChatVisible) {
+          chatPanel.classList.add('show');
+          chatButton.setAttribute('aria-expanded', 'true');
+        } else {
+          chatPanel.classList.remove('show');
+          chatButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+  
+  
+      const app = document.querySelector(".app");
+      const socket = io();
+  
+      let uname;
+      
+  
+      app.querySelector(".join-screen #join-user").addEventListener("click", function () {
+        let username;
+  '<% if (typeof user !== "undefined" && user.Type === "Admin") { %>'
+              username = "Admin";
+ ' <% } else { %>'
+              username = '<%= typeof user !== "undefined" ? user.fullname : " "%>';
+  '<% } %>'
+
+        
+        if (username.length === 0) {
+          return;
+        }
+  
+        socket.emit("newuser", username);
+        uname = username;
+        app.querySelector(".join-screen").classList.remove("active");
+        app.querySelector(".chat-screen").classList.add("active");
+      });
+  
+      app.querySelector(".chat-screen #send-message").addEventListener("click", function () {
+        let message = app.querySelector(".chat-screen #message-input").value;
+        if (message.length === 0) {
+          return;
+        }
+  
+        renderMessage("my", {
+          username: uname,
+          text: message
+        });
+  
+        socket.emit("chat", {
+          username: uname,
+          text: message
+        });
+  
+        app.querySelector(".chat-screen #message-input").value = "";
+      });
+  
+      app.querySelector(".chat-screen #exit-chat").addEventListener("click", function () {
+        socket.emit("exituser", uname);
+        window.location.href = window.location.href;
+      });
+  
+      socket.on("update", function (update) {
+        renderMessage("update", update);
+      });
+  
+      socket.on("chat", function (message) {
+        renderMessage("other", message);
+      });
+  
+      function renderMessage(type, message) {
+        let messageContainer = app.querySelector(".chat-screen .message");
+  
+        if (type === "my") {
+          let el = document.createElement("div");
+          el.setAttribute("class", "message my-message");
+          el.innerHTML = `
+          <div class="name">You</div>
+          <div class="text">${message.text}</div>
+        `;
+          messageContainer.appendChild(el);
+        } else if (type === "other") {
+          let el = document.createElement("div");
+          el.setAttribute("class", "message other-message");
+          el.innerHTML = `
+          <div class="name">${message.username}</div>
+          <div class="text">${message.text}</div>
+        `;
+          messageContainer.appendChild(el);
+        } else if (type === "update") {
+          let el = document.createElement("div");
+          el.setAttribute("class", "update");
+          el.innerText = message;
+          messageContainer.appendChild(el);
+        }
+  
+        // Scroll chat to end
+        messageContainer.scrollTop = messageContainer.scrollHeight - messageContainer.clientHeight;
+      }
+      // Hide the container if the user is undefined
+      const container = document.querySelector(".container-md");
+      const hide = '<%= typeof user !== "undefined" ? "user" : "undefined" %>';
+      if ( hide === "undefined") {
+        container.style.display = "none";
+      }
+    })();
+  </script>

@@ -1,0 +1,29 @@
+<head>
+    <%- include('../partials/head'); %>
+    <%- include('../partials/header'); %>
+  </head>
+<div class="container small-container">
+    <h1 class="my-3">User Profile</h1>
+    <form action="/profile/<%= user._id %>" method="post">
+      <div class="form-group mb-3">
+        <label>Name</label>
+        <input class="form-control" name="profileName" value="<%= user.name %>" required />
+      </div>
+      <div class="form-group mb-3" >
+        <label>Email</label>
+        <input type="email" name="profileEmail" class="form-control" value="<%= user.Email %>" required />
+      </div>
+      <div class="form-group mb-3" >
+        <label>Password</label>
+        <input type="password" name="profilePassword" class="form-control" />
+      </div>
+      <div class="form-group mb-3" >
+        <label>Confirm Password</label>
+        <input type="password" name="profileConfirmPassword" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-primary" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>

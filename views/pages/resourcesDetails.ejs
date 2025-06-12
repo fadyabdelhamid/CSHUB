@@ -1,0 +1,72 @@
+<head>
+    <%- include('../partials/head'); %>
+    <%- include('../partials/header'); %>
+  </head>
+<div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <img
+          class="img-fluid"
+          src=<%= resource.image %>
+          alt="Sample resource"
+        />
+      </div>
+      <div class="col-md-3">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <!-- Replace with appropriate star rating HTML and CSS -->
+          </li>
+          <li class="list-group-item">
+            Description:
+            <p><%= resource.description %></p>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">Name:</div>
+                  <div class="col"><%= resource.name %></div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">Category:</div>
+                  <div class="col">
+                    <div class="col"><%= resource.category %></div>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="d-grid">
+                  <button
+                    id="addToCartButton"
+                    class="btn btn-primary"
+                    name=<%= resource.link %>
+                  >
+                    Enroll
+                  </button>
+                  <script>
+                    document.getElementById('addToCartButton').addEventListener('click', (event) => {
+                      fetch("/cart/add", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({ id: event.target.name }),
+                    });
+                  }
+                  );
+                  </script>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>

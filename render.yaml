@@ -1,0 +1,16 @@
+# Exported from Render on 2024-05-17T00:23:06Z
+services:
+- type: web
+  name: CS-HUB
+  runtime: node
+  repo: https://github.com/ALsaeed323/CS-HUB
+  plan: free
+  envVars:
+  - key: PORT
+    sync: false
+  - key: Xj7BcXb1bzA7TQAO
+    sync: false
+  region: oregon
+  buildCommand: npm install
+  startCommand: node app.js
+version: "1"
